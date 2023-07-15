@@ -21,7 +21,10 @@ const Comments = () => {
   return (
     <div className="commentsCardsParent">
       {rootComments?.map((rootComment) => (
-        <Comment replies={getReplies(rootComment.id, backendComments)} />
+        <Comment
+          comment={rootComment}
+          replies={getReplies(rootComment.id, backendComments)}
+        />
       ))}
     </div>
   );
