@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getComments } from "../Features/Slice";
+import Comment from "./Comment";
 
 const Comments = () => {
   const { getCommentsData } = useSelector((store) => store.comments);
@@ -17,7 +18,13 @@ const Comments = () => {
     setBackendComments(getCommentsData);
   }, [getCommentsData]);
 
-  return <>a</>;
+  return (
+    <div className="commentsCardsParent">
+      {[0, 0, 0, 0, 0, 0, 0, 0].map(() => (
+        <Comment />
+      ))}
+    </div>
+  );
 };
 
 export default Comments;

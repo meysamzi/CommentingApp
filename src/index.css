@@ -3,3 +3,17 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.commentsCardsParent {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.6rem;
+  max-width: 1420px;
+  margin: 1rem auto;
+}
+
+.commentsCards {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  padding: 0.5rem;
+  border-radius: 5px;
+}
