@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getComments } from "../Features/Slice";
 import Comment from "./Comment";
+import getReplies from "../Utils/getReplies";
 
 const Comments = () => {
   const { getCommentsData } = useSelector((store) => store.comments);
   const [backendComments, setBackendComments] = useState();
-  const [activeComment, setActiveComment] = useState(null);
   const rootComments = backendComments?.filter(
     (backendComment) => backendComment.parentId === null
   );
@@ -20,8 +20,8 @@ const Comments = () => {
 
   return (
     <div className="commentsCardsParent">
-      {[0, 0, 0, 0, 0, 0, 0, 0].map(() => (
-        <Comment />
+      {rootComments?.map((rootComment) => (
+        <Comment replies={getReplies(rootComment.id, backendComments)} />
       ))}
     </div>
   );
