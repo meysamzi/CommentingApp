@@ -1,13 +1,7 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { getComments } from "./Features/Slice";
+import Comments from "./Components/Comments";
 
 function App() {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getComments());
-  }, []);
-  return <div>setting up project</div>;
+  return <Comments />;
 }
 
 export default App;

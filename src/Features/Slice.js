@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getCommentsApi } from "./Thunks";
+import { getCommentsThunk } from "./Thunks";
 
 export const getComments = createAsyncThunk(
   "comments/getComments",
-  getCommentsApi
+  getCommentsThunk
 );
 
 const initialState = {
@@ -11,7 +11,7 @@ const initialState = {
   getCommentsData: [],
 };
 
-export const commentsSlice = createSlice({
+const commentsSlice = createSlice({
   name: "comments",
   initialState,
   extraReducers: {
@@ -19,7 +19,6 @@ export const commentsSlice = createSlice({
       state.isGetCommentsDataLoading = true;
     },
     [getComments.fulfilled]: (state, { payload }) => {
-      console.log("payload ", payload);
       state.isGetCommentsDataLoading = false;
       state.getCommentsData = payload;
     },
