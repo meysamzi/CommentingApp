@@ -4,12 +4,40 @@
   box-sizing: border-box;
 }
 
+.cardsLayoutParent {
+  max-width: 1420px;
+  margin: 1rem auto;
+}
+
+.cardsLayoutParent form {
+  margin-bottom: 1rem;
+}
+
+.formParent {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.formParent input {
+  padding: 0.5rem 1.5rem;
+  outline: none;
+  border: 1px solid rgb(157, 157, 228);
+  border-radius: 5px;
+}
+
+.formParent button {
+  background-color: rgba(0, 0, 255, 0.671);
+  padding: 0 1rem;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 .commentsCardsParent {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0.6rem;
-  max-width: 1420px;
-  margin: 1rem auto;
 }
 
 .commentsCards {
