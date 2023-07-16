@@ -57,7 +57,6 @@ const Comment = ({
           >
             Edit
           </span>
-
           <span onClick={() => deleteComment(comment.id)}>Delete</span>
         </div>
         {isReplying && (
