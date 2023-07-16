@@ -62,6 +62,16 @@
   gap: 0.5rem;
 }
 
+.commentsCardsRightSideEditReplyDelete {
+  display: flex;
+  gap: 0.4rem;
+  font-size: 12px;
+}
+
+.commentsCardsRightSideEditReplyDelete span {
+  cursor: pointer;
+}
+
 .commentsCardsRightSideReplies {
   display: flex;
   flex-direction: column;

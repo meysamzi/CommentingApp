@@ -7,7 +7,12 @@ const Comment = ({
   setActiveComment,
   activeComment,
   addComment,
+  updateComment,
 }) => {
+  const isEditing =
+    activeComment &&
+    activeComment.id === comment.id &&
+    activeComment.type === "editing";
   const isReplying =
     activeComment &&
     activeComment.id === comment.id &&
@@ -24,16 +29,34 @@ const Comment = ({
           <span>{comment?.username}</span>
           <span>{createdAt}</span>
         </div>
-        <span>{comment.body}</span>
-        {comment.parentId === null && (
+        {!isEditing && <div className="comment-text">{comment.body}</div>}
+        {isEditing && (
+          <CommentForm
+            submitLabel="Update"
+            hasCancelButton
+            initialText={comment.body}
+            handleSubmit={(text) => updateComment(text, comment.id)}
+          />
+        )}
+        <div className="commentsCardsRightSideEditReplyDelete">
           <span
+            className="comment-action"
             onClick={() =>
-              setActiveComment({ id: comment.id, type: "replying" })
+              setActiveComment({ id: comment.id, type: "editing" })
             }
           >
-            Reply
+            Edit
           </span>
-        )}
+          {comment.parentId === null && (
+            <span
+              onClick={() =>
+                setActiveComment({ id: comment.id, type: "replying" })
+              }
+            >
+              Reply
+            </span>
+          )}
+        </div>
         {isReplying && (
           <CommentForm
             submitLabel="Reply"
@@ -43,7 +66,13 @@ const Comment = ({
         {replies?.length > 0 && (
           <div className="commentsCardsRightSideReplies">
             {replies?.map((reply) => (
-              <Comment comment={reply} />
+              <Comment
+                comment={reply}
+                addComment={addComment}
+                updateComment={updateComment}
+                setActiveComment={setActiveComment}
+                activeComment={activeComment}
+              />
             ))}
           </div>
         )}

@@ -20,6 +20,17 @@ const Comments = () => {
     setBackendComments(getCommentsData);
   }, [getCommentsData]);
 
+  const updateComment = (text, commentId) => {
+    const updatedBackendComments = backendComments.map((backendComment) => {
+      if (backendComment.id === commentId) {
+        return { ...backendComment, body: text };
+      }
+      return backendComment;
+    });
+    setBackendComments(updatedBackendComments);
+    setActiveComment(null);
+  };
+
   const addComment = (text, parentId = null) => {
     setBackendComments([
       ...backendComments,
@@ -32,7 +43,7 @@ const Comments = () => {
         createdAt: new Date().toISOString(),
       },
     ]);
-    setActiveComment(null)
+    setActiveComment(null);
   };
 
   return (
@@ -46,6 +57,7 @@ const Comments = () => {
             setActiveComment={setActiveComment}
             activeComment={activeComment}
             addComment={addComment}
+            updateComment={updateComment}
           />
         ))}
       </div>
