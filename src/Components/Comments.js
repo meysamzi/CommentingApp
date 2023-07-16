@@ -8,6 +8,7 @@ import CommentForm from "./CommentForm";
 const Comments = () => {
   const { getCommentsData } = useSelector((store) => store.comments);
   const [backendComments, setBackendComments] = useState();
+  const [activeComment, setActiveComment] = useState(null);
   const rootComments = backendComments?.filter(
     (backendComment) => backendComment.parentId === null
   );
@@ -31,6 +32,7 @@ const Comments = () => {
         createdAt: new Date().toISOString(),
       },
     ]);
+    setActiveComment(null)
   };
 
   return (
@@ -41,6 +43,9 @@ const Comments = () => {
           <Comment
             comment={rootComment}
             replies={getReplies(rootComment.id, backendComments)}
+            setActiveComment={setActiveComment}
+            activeComment={activeComment}
+            addComment={addComment}
           />
         ))}
       </div>

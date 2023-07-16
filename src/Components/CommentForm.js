@@ -8,6 +8,7 @@ const CommentForm = ({ handleSubmit, submitLabel, initialText = "" }) => {
     handleSubmit(text);
     setText("");
   };
+
   return (
     <form onSubmit={onSubmit}>
       <div className="formParent">
