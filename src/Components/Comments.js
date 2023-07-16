@@ -1,17 +1,24 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getComments } from "../Features/Slice";
 import Comment from "./Comment";
 import getReplies from "../Utils/getReplies";
 import CommentForm from "./CommentForm";
+import useIntersectionObserver from "../CustomHooks/useIntersectionObserver";
 
 const Comments = () => {
   const { getCommentsData } = useSelector((store) => store.comments);
   const [backendComments, setBackendComments] = useState();
   const [activeComment, setActiveComment] = useState(null);
-  const rootComments = backendComments?.filter(
+  const [dataCounter, setDataCounter] = useState(15);
+  const intersectionObserverElement = useRef(null);
+  let slicedData = useRef([]);
+  let inView = useIntersectionObserver(intersectionObserverElement);
+  slicedData.current = backendComments?.filter(
     (backendComment) => backendComment.parentId === null
   );
+  slicedData.current =
+    Array.isArray(backendComments) && backendComments.slice(0, dataCounter);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getComments());
@@ -19,6 +26,9 @@ const Comments = () => {
   useEffect(() => {
     setBackendComments(getCommentsData);
   }, [getCommentsData]);
+  useEffect(() => {
+    inView && setDataCounter((prev) => prev + 5);
+  }, [inView]);
 
   const updateComment = (text, commentId) => {
     const updatedBackendComments = backendComments.map((backendComment) => {
@@ -59,18 +69,23 @@ const Comments = () => {
     <div className="cardsLayoutParent">
       <CommentForm submitLabel="New Comment" handleSubmit={addComment} />
       <div className="commentsCardsParent">
-        {rootComments?.map((rootComment) => (
-          <Comment
-            comment={rootComment}
-            replies={getReplies(rootComment.id, backendComments)}
-            setActiveComment={setActiveComment}
-            activeComment={activeComment}
-            addComment={addComment}
-            updateComment={updateComment}
-            deleteComment={deleteComment}
-          />
-        ))}
+        {Array.isArray(slicedData.current) &&
+          slicedData?.current?.map((rootComment) => (
+            <Comment
+              comment={rootComment}
+              replies={getReplies(rootComment.id, backendComments)}
+              setActiveComment={setActiveComment}
+              activeComment={activeComment}
+              addComment={addComment}
+              updateComment={updateComment}
+              deleteComment={deleteComment}
+            />
+          ))}
       </div>
+      <div
+        ref={intersectionObserverElement}
+        style={{ visibility: "hidden" }}
+      ></div>
     </div>
   );
 };
