@@ -8,6 +8,7 @@ const Comment = ({
   activeComment,
   addComment,
   updateComment,
+  deleteComment,
 }) => {
   const isEditing =
     activeComment &&
@@ -39,14 +40,6 @@ const Comment = ({
           />
         )}
         <div className="commentsCardsRightSideEditReplyDelete">
-          <span
-            className="comment-action"
-            onClick={() =>
-              setActiveComment({ id: comment.id, type: "editing" })
-            }
-          >
-            Edit
-          </span>
           {comment.parentId === null && (
             <span
               onClick={() =>
@@ -56,6 +49,16 @@ const Comment = ({
               Reply
             </span>
           )}
+          <span
+            className="comment-action"
+            onClick={() =>
+              setActiveComment({ id: comment.id, type: "editing" })
+            }
+          >
+            Edit
+          </span>
+
+          <span onClick={() => deleteComment(comment.id)}>Delete</span>
         </div>
         {isReplying && (
           <CommentForm
@@ -70,6 +73,7 @@ const Comment = ({
                 comment={reply}
                 addComment={addComment}
                 updateComment={updateComment}
+                deleteComment={deleteComment}
                 setActiveComment={setActiveComment}
                 activeComment={activeComment}
               />

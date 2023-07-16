@@ -36,7 +36,6 @@
 
 .commentsCardsParent {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
   gap: 0.6rem;
 }
 
@@ -86,4 +85,10 @@
 
 .commentsCardsRightSideNameAndDAte span:nth-child(1) {
   font-weight: bold;
+}
+
+@media screen and (min-width: 1000px) {
+  .commentsCardsParent {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }

@@ -46,6 +46,15 @@ const Comments = () => {
     setActiveComment(null);
   };
 
+  const deleteComment = (commentId) => {
+    if (window.confirm("Are you sure you want to remove comment?")) {
+      const updatedBackendComments = backendComments.filter(
+        (backendComment) => backendComment.id !== commentId
+      );
+      setBackendComments(updatedBackendComments);
+    }
+  };
+
   return (
     <div className="cardsLayoutParent">
       <CommentForm submitLabel="New Comment" handleSubmit={addComment} />
@@ -58,6 +67,7 @@ const Comments = () => {
             activeComment={activeComment}
             addComment={addComment}
             updateComment={updateComment}
+            deleteComment={deleteComment}
           />
         ))}
       </div>
