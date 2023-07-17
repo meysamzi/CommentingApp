@@ -18,7 +18,8 @@ const Comments = () => {
     (backendComment) => backendComment.parentId === null
   );
   slicedData.current =
-    Array.isArray(backendComments) && backendComments.slice(0, dataCounter);
+    Array.isArray(slicedData.current) &&
+    slicedData.current.slice(0, dataCounter);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getComments());
