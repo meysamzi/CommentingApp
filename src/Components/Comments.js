@@ -10,7 +10,7 @@ const Comments = () => {
   const { getCommentsData } = useSelector((store) => store.comments);
   const [backendComments, setBackendComments] = useState();
   const [activeComment, setActiveComment] = useState(null);
-  const [dataCounter, setDataCounter] = useState(15);
+  const [dataCounter, setDataCounter] = useState(20);
   const intersectionObserverElement = useRef(null);
   let slicedData = useRef([]);
   let inView = useIntersectionObserver(intersectionObserverElement);
